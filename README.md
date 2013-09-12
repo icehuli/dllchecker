@@ -11,7 +11,8 @@ Assuming you have a sketchup plug-in with following file structure,
       C:\Program Files (x86)\SketchUp\SketchUp 2013\Plugins\su_pluginn_name\...
       C:\Program Files (x86)\SketchUp\SketchUp 2013\Plugins\su_pluginn_name\xxxx.rb
       C:\Program Files (x86)\SketchUp\SketchUp 2013\Plugins\su_pluginn_name\dll\xxxx.dll
-      C:\Program Files (x86)\SketchUp\SketchUp 2013\Plugins\su_pluginn_name\dll\xxxx.dll
+      C:\Program Files (x86)\SketchUp\SketchUp 2013\Plugins\su_pluginn_name\dll\...
+      C:\Program Files (x86)\SketchUp\SketchUp 2013\Plugins\su_pluginn_name\dll\...
       C:\Program Files (x86)\SketchUp\SketchUp 2013\Plugins\su_pluginn_name\dll\xxxx.dll
 
 this extension includs two files
