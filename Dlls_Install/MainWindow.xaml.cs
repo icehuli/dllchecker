@@ -56,14 +56,16 @@ namespace Dlls_Install
             int number = dllFiles.Length;
             int current = 0;
             ProgressBar_Copying.Maximum = number - 1;
-            if (number > 0)
+            string suDir = System.IO.Path.GetFullPath(System.IO.Path.Combine(sodDllDir, "..\\..\\..\\"));
+            string confirmingMessage = string.Join(",  ",dllFiles.Select(file => file.Name).ToArray());
+            confirmingMessage = "Do you want to copy " + number + " files: \"" + confirmingMessage + "\" into \"" + suDir + "\".";
+            if (MessageBox.Show(confirmingMessage, "Confirm", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
-                TextBlock_Copying.Text = number.ToString()+" files are copied.\n";
-            }
-            foreach (FileInfo dll in dllFiles) //look for first file in files array
-            {
-                string suDir = System.IO.Path.GetFullPath(System.IO.Path.Combine(sodDllDir, "..\\..\\..\\"));
-                if (suDir.Contains("SketchUp"))
+                if (current > 0)
+                {
+                    TextBlock_Copying.Text = number.ToString() + " files are going to be copied.\n";
+                }
+                foreach (FileInfo dll in dllFiles) //look for first file in files array
                 {
                     File.Copy(dll.FullName, System.IO.Path.Combine(suDir, dll.Name), true);
                     TextBlock_Copying.Text += "from:\t" + dll.FullName + "\n";
@@ -72,9 +74,15 @@ namespace Dlls_Install
                     ProgressBar_Copying.Value = current;
                     current++;
                 }
+                Label_Copying.Content += "Finished.";
+                Button_ExitRestartSU.Visibility = System.Windows.Visibility.Visible;
+                TextBlock_Copying.Text += "Finished.";
             }
-            Label_Copying.Content += "Finished";
-            Button_ExitRestartSU.Visibility = System.Windows.Visibility.Visible;
+            else
+            {
+                TextBlock_Copying.Text = "Installation is canceled.";
+                Label_Copying.Content += "Canceled";
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
