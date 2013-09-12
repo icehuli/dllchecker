@@ -34,7 +34,7 @@ The package contains a visual studio 2012 solution with two projects:
 
 It uses ruby1.8.6 and swig 2.0.0+.
 
-It is using the MIT license. 
+It is under the MIT license. 
 
 The MIT License (MIT)
 
