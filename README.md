@@ -16,8 +16,8 @@ Assuming you have a sketchup plug-in with following file structure,
       C:\Program Files (x86)\SketchUp\SketchUp 2013\Plugins\su_pluginn_name\dll\xxxx.dll
 
 this extension includs two files
-C:\Program Files (x86)\SketchUp\SketchUp 2013\Plugins\su_pluginn_name\dllChecker.dll
-C:\Program Files (x86)\SketchUp\SketchUp 2013\Plugins\su_pluginn_name\dll\Dlls_Install.exe
+      C:\Program Files (x86)\SketchUp\SketchUp 2013\Plugins\su_pluginn_name\dllChecker.dll
+      C:\Program Files (x86)\SketchUp\SketchUp 2013\Plugins\su_pluginn_name\dll\Dlls_Install.exe
 
 It copys all xxx.dll files under "su_pluginn_name\dll" folder into your SketchUp installation folder, 
 which is "C:\Program Files (x86)\SketchUp\SketchUp 2013" in this case.
