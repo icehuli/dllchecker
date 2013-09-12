@@ -23,7 +23,7 @@ which is "C:\Program Files (x86)\SketchUp\SketchUp 2013" in this case.
 
 In a .rb file it can use the extension as 
 
-      require "SODdll/dllChecker"
+      require "su_pluginn_name/dllChecker"
       DllChecker::DllChecker.launchDllsInstaller($:[0]+"/su_pluginn_name/dll/", "Dlls_Install.exe")
 
 This lauchs Dlls_Install.exe as Administrator to have the sufficient permission to do the copying.
