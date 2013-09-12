@@ -5,20 +5,20 @@ dllchecker for .dll extensions of sketchup ruby plug-in
 
 Assuming you have a sketchup plug-in with following file structure,
 
-C:\Program Files (x86)\SketchUp\SketchUp 2013\Plugins\su_pluginn_name.rb
-C:\Program Files (x86)\SketchUp\SketchUp 2013\Plugins\su_pluginn_name\xxxx.rb
-C:\Program Files (x86)\SketchUp\SketchUp 2013\Plugins\su_pluginn_name\...
-C:\Program Files (x86)\SketchUp\SketchUp 2013\Plugins\su_pluginn_name\...
-C:\Program Files (x86)\SketchUp\SketchUp 2013\Plugins\su_pluginn_name\xxxx.rb
-C:\Program Files (x86)\SketchUp\SketchUp 2013\Plugins\su_pluginn_name\dll\xxxx.dll
-C:\Program Files (x86)\SketchUp\SketchUp 2013\Plugins\su_pluginn_name\dll\xxxx.dll
-C:\Program Files (x86)\SketchUp\SketchUp 2013\Plugins\su_pluginn_name\dll\xxxx.dll
+      C:\Program Files (x86)\SketchUp\SketchUp 2013\Plugins\su_pluginn_name.rb
+      C:\Program Files (x86)\SketchUp\SketchUp 2013\Plugins\su_pluginn_name\xxxx.rb
+      C:\Program Files (x86)\SketchUp\SketchUp 2013\Plugins\su_pluginn_name\...
+      C:\Program Files (x86)\SketchUp\SketchUp 2013\Plugins\su_pluginn_name\...
+      C:\Program Files (x86)\SketchUp\SketchUp 2013\Plugins\su_pluginn_name\xxxx.rb
+      C:\Program Files (x86)\SketchUp\SketchUp 2013\Plugins\su_pluginn_name\dll\xxxx.dll
+      C:\Program Files (x86)\SketchUp\SketchUp 2013\Plugins\su_pluginn_name\dll\xxxx.dll
+      C:\Program Files (x86)\SketchUp\SketchUp 2013\Plugins\su_pluginn_name\dll\xxxx.dll
 
 this extension includs two files
 C:\Program Files (x86)\SketchUp\SketchUp 2013\Plugins\su_pluginn_name\dllChecker.dll
 C:\Program Files (x86)\SketchUp\SketchUp 2013\Plugins\su_pluginn_name\dll\Dlls_Install.exe
 
-It copys all xxx.dll files under su_pluginn_name\dll folder into your SketchUp installation folder, 
+It copys all xxx.dll files under "su_pluginn_name\dll" folder into your SketchUp installation folder, 
 which is "C:\Program Files (x86)\SketchUp\SketchUp 2013" in this case.
 
 In a .rb file it can use the extension as 
@@ -29,7 +29,7 @@ In a .rb file it can use the extension as
 This lauchs Dlls_Install.exe as Administrator to have the sufficient permission to do the copying.
 The package contains a visual studio 2012 solution with two projects: 
 
-dllChecker (c++/.dll) and Dlls_Install (c#/wpf)
+      dllChecker (c++/.dll) and Dlls_Install (c#/wpf)
 
 It uses ruby1.8.6 and swig 2.0.0+.
 
