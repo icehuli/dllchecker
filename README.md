@@ -18,7 +18,7 @@ this extension includs two files
 C:\Program Files (x86)\SketchUp\SketchUp 2013\Plugins\su_pluginn_name\dllChecker.dll
 C:\Program Files (x86)\SketchUp\SketchUp 2013\Plugins\su_pluginn_name\dll\Dlls_Install.exe
 
-Tt is used to copy all xxx.dll files under su_pluginn_name\dll folder into your SketchUp installation folder, 
+It copys all xxx.dll files under su_pluginn_name\dll folder into your SketchUp installation folder, 
 which is "C:\Program Files (x86)\SketchUp\SketchUp 2013" in this case.
 
 In a .rb file it can use the extension as 
