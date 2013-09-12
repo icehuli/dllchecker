@@ -1,0 +1,13 @@
+﻿<Window x:Class="Dlls_Install.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Copying Necessary Dlls" Height="178" Width="400" MaxHeight="700" >
+    <Grid>
+        <Label x:Name="Label_Copying"  Content="Copying necessary dlls ... " HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="29" Width="221"/>
+        <ProgressBar x:Name="ProgressBar_Copying" Height="15" Margin="10,39,10,0" VerticalAlignment="Top"/>
+        <ScrollViewer Margin="10,59,10,10" >
+            <TextBlock x:Name="TextBlock_Copying" TextWrapping="Wrap" Text="" FontSize="11" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+        </ScrollViewer>
+        <Button x:Name="Button_ExitRestartSU" Visibility="Hidden" Content="Exit and Start SketchUp" HorizontalAlignment="Left" Margin="236,13,0,0" VerticalAlignment="Top" Width="148" Click="Button_Click"/>
+    </Grid>
+</Window>
