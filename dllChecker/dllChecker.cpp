@@ -5,12 +5,13 @@
 /* Move the shape to a new location */
 #include <Windows.h>
 #include <cstdlib>
-#include <iostream>
 
 #include <direct.h>
 #include <shlobj.h>
 #include <shlwapi.h>
 #include <objbase.h>
+
+//#include <iostream>
 
 
 #define GetCurrentDir _getcwd

@@ -73,7 +73,7 @@
     <ManifestKeyFile>Dlls_Install_1_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>
@@ -176,7 +176,7 @@
     </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>copy /Y $(TargetDir)$(TargetFileName) "C:\Program Files (x86)\SketchUp\SketchUp 2013\Plugins\SODdll\dll\"</PostBuildEvent>
+    <PostBuildEvent>copy /Y $(TargetDir)$(TargetFileName) "C:\Program Files (x86)\SketchUp\SketchUp 2013\Plugins\SODv3\dll\"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
