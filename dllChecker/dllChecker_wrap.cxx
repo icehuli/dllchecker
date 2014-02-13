@@ -1889,6 +1889,24 @@ fail:
 }
 
 
+SWIGINTERN VALUE
+_wrap_DllChecker_IsDataFolderWritable(int argc, VALUE *argv, VALUE self) {
+  VALUE arg1 = (VALUE) 0 ;
+  VALUE result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  arg1 = argv[0];
+  result = (VALUE)DllChecker::IsDataFolderWritable(arg1);
+  vresult = result;
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
 
 /* -------- TYPE CONVERSION AND EQUIVALENCE RULES (BEGIN) -------- */
 
@@ -2170,6 +2188,7 @@ SWIGEXPORT void Init_dllChecker(void) {
   rb_define_alloc_func(SwigClassDllChecker.klass, _wrap_DllChecker_allocate);
   rb_define_method(SwigClassDllChecker.klass, "initialize", VALUEFUNC(_wrap_new_DllChecker), -1);
   rb_define_singleton_method(SwigClassDllChecker.klass, "launchDllsInstaller", VALUEFUNC(_wrap_DllChecker_launchDllsInstaller), -1);
+  rb_define_singleton_method(SwigClassDllChecker.klass, "IsDataFolderWritable", VALUEFUNC(_wrap_DllChecker_IsDataFolderWritable), -1);
   SwigClassDllChecker.mark = 0;
   SwigClassDllChecker.destroy = (void (*)(void *)) free_DllChecker;
   SwigClassDllChecker.trackObjects = 0;

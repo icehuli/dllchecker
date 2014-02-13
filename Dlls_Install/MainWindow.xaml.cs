@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Security.AccessControl;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -64,26 +65,36 @@ namespace Dlls_Install
                 + "\" and set write permission for folder \"" + sudataDir + "\".";
             if (MessageBox.Show(confirmingMessage, "Confirm", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
-                if (current > 0)
+                try
                 {
-                    TextBlock_Copying.Text = number.ToString() + " library files are going to be installed.\n";
-                }
-                foreach (FileInfo dll in dllFiles) //look for first file in files array
-                {
-                    File.Copy(dll.FullName, System.IO.Path.Combine(suDir, dll.Name), true);
-                    TextBlock_Copying.Text += "from:\t" + dll.FullName + "\n";
-                    TextBlock_Copying.Text += "to:  \t" + System.IO.Path.Combine(suDir, dll.Name) + "\n";
-                    TextBlock_Copying.Text += "-------------------------------------------------------\n";
-                    ProgressBar_Copying.Value = current;
-                    current++;
-                }
-                DirectorySecurity sudataDirSec = new DirectorySecurity();
-                sudataDirSec.AddAccessRule(new FileSystemAccessRule(@"Everyone", FileSystemRights.FullControl, AccessControlType.Allow));
-                System.IO.Directory.SetAccessControl(sudataDir, sudataDirSec);
 
-                Label_Copying.Content += "Finished.";
-                Button_ExitRestartSU.Visibility = System.Windows.Visibility.Visible;
-                TextBlock_Copying.Text += "Finished.";
+                    if (current > 0)
+                    {
+                        TextBlock_Copying.Text = number.ToString() + " library files are going to be installed.\n";
+                    }
+                    foreach (FileInfo dll in dllFiles) //look for first file in files array
+                    {
+                        File.Copy(dll.FullName, System.IO.Path.Combine(suDir, dll.Name), true);
+                        TextBlock_Copying.Text += "from:\t" + dll.FullName + "\n";
+                        TextBlock_Copying.Text += "to:  \t" + System.IO.Path.Combine(suDir, dll.Name) + "\n";
+                        TextBlock_Copying.Text += "-------------------------------------------------------\n";
+                        ProgressBar_Copying.Value = current;
+                        current++;
+                    }
+                    DirectorySecurity sudataDirSec = new DirectorySecurity();
+                    //SID "S-1-1-0" = "Everyone"
+                    //SID "S-1-5-32-545" == "Users"
+                    sudataDirSec.AddAccessRule(new FileSystemAccessRule(new SecurityIdentifier(@"S-1-5-32-545"), FileSystemRights.FullControl, AccessControlType.Allow));
+                    System.IO.Directory.SetAccessControl(sudataDir, sudataDirSec);
+
+                    Label_Copying.Content += "Finished.";
+                    Button_ExitRestartSU.Visibility = System.Windows.Visibility.Visible;
+                    TextBlock_Copying.Text += "Finished.";
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show(exception.Message);
+                }
             }
             else
             {

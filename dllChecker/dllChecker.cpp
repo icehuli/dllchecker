@@ -16,7 +16,13 @@
 
 #define GetCurrentDir _getcwd
 
-using namespace std;
+using namespace std; 
+using namespace System::IO;
+using namespace System::Security::AccessControl;
+using namespace System::Security;
+using namespace System::Security::Permissions;
+using namespace System::Security::Principal;
+using namespace System::Windows::Forms;
 
 
 #include <msclr/marshal.h>
@@ -84,6 +90,73 @@ void DllChecker::launchDllsInstaller(VALUE sodDllDir, VALUE exeName)
 	wcscat_s(wFullExeName, sodDllDirStr);
 	wcscat_s(wFullExeName, wExeName);
 	OpenCopyDllsWindows(sodDllDirStr, wFullExeName);
+}
+
+VALUE DllChecker::IsDataFolderWritable(VALUE sodDllDir)
+{
+    char* words = StringValueCStr(sodDllDir);
+
+    String^ folder = System::IO::Path::GetFullPath(gcnew String(words));
+
+    // Create a new DirectoryInfo object.
+    DirectoryInfo^ dInfo = gcnew DirectoryInfo(folder);
+    // Get a DirectorySecurity object that represents the
+    // current security settings.
+    DirectorySecurity^ dSecurity = dInfo->GetAccessControl();
+    //FileSystemAccessRule(@"Everyone", FileSystemRights.FullControl, AccessControlType.Allow
+    //"S-1-5-32-545" == "Users"
+    //FileSystemAccessRule^ administratorRule = gcnew FileSystemAccessRule("S-1-5-32-545", FileSystemRights::FullControl, AccessControlType::Allow);
+    SecurityIdentifier^ sid = gcnew SecurityIdentifier("S-1-5-32-545");
+    /* Interestingly, SDDL aliases work here. */
+        //(NTAccount)sidIf.Translate(typeof(NTAccount));
+    
+    AuthorizationRuleCollection^ accessRules = dSecurity->GetAccessRules(true, true, Principal::SecurityIdentifier::typeid);
+    bool canCreateDirectories = false;
+    bool canCreateFiles = false;
+    bool canModify = false;
+
+    int isDataFolderWritableRights = 0;
+    for (int x = 0; x < accessRules->Count; x++)
+    {
+        FileSystemAccessRule^ currentRule = (FileSystemAccessRule^)(accessRules[x]);
+
+        SecurityIdentifier^ currentSid = (SecurityIdentifier^)(currentRule->IdentityReference->Translate(SecurityIdentifier::typeid));
+        if (currentSid == sid && currentRule->AccessControlType == AccessControlType::Allow)
+        {
+
+            if ((currentRule->FileSystemRights & FileSystemRights::CreateDirectories) == FileSystemRights::CreateDirectories)
+            {
+                canCreateDirectories = true;
+            }
+
+            if ((currentRule->FileSystemRights & FileSystemRights::CreateFiles) == FileSystemRights::CreateFiles)
+            {
+                canCreateFiles = true;
+            }
+
+            if ((currentRule->FileSystemRights & FileSystemRights::Modify) == FileSystemRights::Modify)
+            {
+                canModify = true;
+            }
+            
+        }
+        else if (currentSid == sid && currentRule->AccessControlType == AccessControlType::Deny)
+        {
+            if ((currentRule->FileSystemRights & FileSystemRights::CreateDirectories) == FileSystemRights::CreateDirectories
+                || (currentRule->FileSystemRights & FileSystemRights::CreateFiles) == FileSystemRights::CreateFiles
+                || (currentRule->FileSystemRights & FileSystemRights::Modify) == FileSystemRights::Modify
+                )
+            {
+                return Qfalse;
+            }
+        }
+    }
+
+    return (
+        canCreateDirectories && 
+        canCreateFiles && 
+        canModify) ? Qtrue : Qfalse;
+
 }
 
 DllChecker::DllChecker()
