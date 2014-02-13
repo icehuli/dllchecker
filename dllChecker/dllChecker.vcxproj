@@ -98,7 +98,7 @@
       <UACUIAccess>true</UACUIAccess>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y $(TargetDir)$(TargetFileName) "C:\Program Files (x86)\SketchUp\SketchUp 2013\Plugins\SODdll"</Command>
+      <Command>copy /Y $(TargetDir)$(TargetFileName) "C:\Program Files (x86)\SketchUp\SketchUp 2013\Plugins\SODv3\"</Command>
     </PostBuildEvent>
     <Manifest>
       <InputResourceManifests>

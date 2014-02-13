@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -57,13 +58,15 @@ namespace Dlls_Install
             int current = 0;
             ProgressBar_Copying.Maximum = number - 1;
             string suDir = System.IO.Path.GetFullPath(System.IO.Path.Combine(sodDllDir, "..\\..\\..\\"));
-            string confirmingMessage = string.Join(",  ",dllFiles.Select(file => file.Name).ToArray());
-            confirmingMessage = "Do you want to copy " + number + " files: \"" + confirmingMessage + "\" into \"" + suDir + "\".";
+            string sudataDir = System.IO.Path.GetFullPath(System.IO.Path.Combine(sodDllDir, "..\\data\\"));
+            string confirmingMessage = string.Join(",  ", dllFiles.Select(file => file.Name).ToArray());
+            confirmingMessage = "Do you want to install " + number + " library  files: \"" + confirmingMessage + "\" into \"" + suDir
+                + "\" and set write permission for folder \"" + sudataDir + "\".";
             if (MessageBox.Show(confirmingMessage, "Confirm", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
                 if (current > 0)
                 {
-                    TextBlock_Copying.Text = number.ToString() + " files are going to be copied.\n";
+                    TextBlock_Copying.Text = number.ToString() + " library files are going to be installed.\n";
                 }
                 foreach (FileInfo dll in dllFiles) //look for first file in files array
                 {
@@ -74,6 +77,10 @@ namespace Dlls_Install
                     ProgressBar_Copying.Value = current;
                     current++;
                 }
+                DirectorySecurity sudataDirSec = new DirectorySecurity();
+                sudataDirSec.AddAccessRule(new FileSystemAccessRule(@"Everyone", FileSystemRights.FullControl, AccessControlType.Allow));
+                System.IO.Directory.SetAccessControl(sudataDir, sudataDirSec);
+
                 Label_Copying.Content += "Finished.";
                 Button_ExitRestartSU.Visibility = System.Windows.Visibility.Visible;
                 TextBlock_Copying.Text += "Finished.";
